@@ -32,6 +32,12 @@ local scount = screen.count()
 -- Beautiful theme
 beautiful.init(home .. "/.config/awesome/zenburn.lua")
 
+-- Terminal
+terminal = "terminator"
+
+-- Font
+awesome.font = "Inconsolata 10"
+
 -- Window management layouts
 layouts = {
   awful.layout.suit.tile,        -- 1
@@ -46,7 +52,7 @@ layouts = {
 
 -- {{{ Tags
 tags = {
-  names  = { "term", "emacs", "web", "mail", "im", 6, 7, "rss", "media" },
+  names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", 9 },
   layout = { layouts[2], layouts[1], layouts[1], layouts[4], layouts[1],
              layouts[6], layouts[6], layouts[5], layouts[6]
 }}
@@ -55,7 +61,7 @@ for s = 1, scount do
   tags[s] = awful.tag(tags.names, s, tags.layout)
   for i, t in ipairs(tags[s]) do
       awful.tag.setproperty(t, "mwfact", i==5 and 0.13  or  0.5)
-      awful.tag.setproperty(t, "hide",  (i==6 or  i==7) and true)
+      awful.tag.setproperty(t, "hide",  i==9 and true)
   end
 end
 -- }}}
