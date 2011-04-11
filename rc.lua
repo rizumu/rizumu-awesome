@@ -322,7 +322,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "e", function () exec("emacsclient -n -c") end),
     awful.key({ modkey }, "r", function () exec("rox", false) end),
     awful.key({ modkey }, "w", function () exec("firefox") end),
-    awful.key({ altkey }, "F1",  function () exec("urxvt") end),
+    awful.key({ altkey }, "#36",  function () exec("urxvt") end),
     awful.key({ altkey }, "#49", function () scratch.drop("urxvt", "bottom", nil, nil, 0.30) end),
     awful.key({ modkey }, "a", function () exec("urxvt -T Alpine -e alpine.exp") end),
     awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
@@ -345,7 +345,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Prompt menus
-    awful.key({ altkey }, "F2", function ()
+    awful.key({ altkey }, "space", function ()
         awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
             function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
             awful.completion.shell, awful.util.getdir("cache") .. "/history")
