@@ -54,7 +54,7 @@ layouts = {
 tags = {
   names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", 9 },
   layout = { layouts[2], layouts[1], layouts[1], layouts[4], layouts[1],
-             layouts[6], layouts[6], layouts[4], layouts[6]
+             layouts[4], layouts[6], layouts[4], layouts[6]
 }}
 
 for s = 1, scount do
@@ -167,7 +167,7 @@ mailwidget = widget({ type = "textbox" })
 vicious.register(mailwidget, vicious.widgets.mbox, "$1", 181, {home .. "/mail/Inbox", 15})
 -- Register buttons
 mailwidget:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () exec("urxvt -T Alpine -e alpine.exp") end)
+  awful.button({ }, 1, function () exec("urxvt --title Mutt -e mutt") end)
 ))
 -- }}}
 
@@ -322,10 +322,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "e", function () exec("emacsclient -n -c") end),
     awful.key({ modkey }, "r", function () exec("rox", false) end),
     awful.key({ modkey }, "w", function () exec("firefox") end),
-    awful.key({ altkey }, "#36",  function () exec("urxvt") end),
+    awful.key({ modkey }, "#36", function () exec("urxvt") end),
     awful.key({ altkey }, "#49", function () scratch.drop("urxvt", "bottom", nil, nil, 0.30) end),
-    awful.key({ modkey }, "a", function () exec("urxvt -T Alpine -e alpine.exp") end),
-    awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
+    awful.key({ modkey }, "a", function () exec("urxvt --title Mutt -e mutt") end),
+    awful.key({ modkey }, "o", function () exec("urxvt --title Ncmpcpp -e ncmpcpp") end),
+    awful.key({ modkey }, "i", function () exec("pidgin")
+                                           exec("skype")
+                                           exec("urxvt --title irssi -e irssi") end),
     awful.key({ modkey }, "q", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ altkey }, "#51", function () if boosk then osk(nil, mouse.screen)
         else boosk, osk = pcall(require, "osk") end
@@ -333,7 +336,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Multimedia keys
-    awful.key({}, "#235", function () exec("kscreenlocker --forcelock") end),
+    awful.key({}, "#235", function () exec("xscreesaver-command --lock") end),
     awful.key({}, "#121", function () exec("pvol.py -m") end),
     awful.key({}, "#122", function () exec("pvol.py -p -c -2") end),
     awful.key({}, "#123", function () exec("pvol.py -p -c  2") end),
@@ -345,25 +348,25 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Prompt menus
-    awful.key({ altkey }, "space", function ()
+    awful.key({ modkey }, "space", function ()
         awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
             function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
             awful.completion.shell, awful.util.getdir("cache") .. "/history")
     end),
-    awful.key({ altkey }, "F3", function ()
+    awful.key({ altkey }, "F1", function ()
         awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
             function (words)
                 sexec("crodict "..words.." | ".."xmessage -timeout 10 -file -")
             end)
     end),
-    awful.key({ altkey }, "F4", function ()
+    awful.key({ modkey }, "g", function ()
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
                 sexec("firefox 'http://yubnub.org/parser/parse?command="..command.."'")
                 awful.tag.viewonly(tags[scount][3])
             end)
     end),
-    awful.key({ altkey }, "F5", function ()
+    awful.key({ altkey }, "F2", function ()
         awful.prompt.run({ prompt = "Lua: " }, promptbox[mouse.screen].widget,
         awful.util.eval, nil, awful.util.getdir("cache") .. "/history_eval")
     end),
@@ -390,8 +393,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "h",          function () awful.tag.incmwfact(-0.05) end),
     awful.key({ modkey, "Shift" }, "l", function () awful.client.incwfact(-0.05) end),
     awful.key({ modkey, "Shift" }, "h", function () awful.client.incwfact( 0.05) end),
-    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey },          "space", function () awful.layout.inc(layouts,  1) end),
+    awful.key({ altkey, "Shift" }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ altkey },          "space", function () awful.layout.inc(layouts,  1) end),
     -- }}}
 
     -- {{{ Focus controls
@@ -412,7 +415,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ altkey }, "Escape", function ()
         awful.menu.menu_keys.down = { "Down", "Alt_L" }
-        local cmenu = awful.menu.clients({width=230}, { keygrabber=true, coords={x=525, y=330} })
+        local cmenu = awful.menu.clients({width=530}, { keygrabber=true, coords={x=525, y=330} })
     end),
     awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.byidx(1)  end),
     awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.byidx(-1) end)
@@ -429,7 +432,7 @@ clientkeys = awful.util.table.join(
         c.maximized_horizontal = not c.maximized_horizontal
         c.maximized_vertical   = not c.maximized_vertical
     end),
-    awful.key({ modkey }, "o",     awful.client.movetoscreen),
+    -- awful.key({ modkey }, "o",     awful.client.movetoscreen),
     awful.key({ modkey }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
     awful.key({ modkey }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
     awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
@@ -507,9 +510,11 @@ awful.rules.rules = {
     { rule = { instance = "firefox-bin" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Akregator" },   properties = { tag = tags[scount][8]} },
-    { rule = { name  = "Alpine" },      properties = { tag = tags[1][4]} },
-    { rule = { class = "Quodlibet" },   properties = { tag = tags[scount][8]} },
-    { rule = { class = "Gajim.py" },    properties = { tag = tags[1][5]} },
+    { rule = { name  = "Mutt" },        properties = { tag = tags[1][4]} },
+    { rule = { name  = "Ncmpcpp" },     properties = { tag = tags[scount][8]} },
+    { rule = { class = "Pidgin" },      properties = { tag = tags[1][5]} },
+    { rule = { class = "Skype" },       properties = { tag = tags[1][5]} },
+    { rule = { name  = "irssi" },       properties = { tag = tags[scount][6]} },
     { rule = { class = "Ark" },         properties = { floating = true } },
     { rule = { class = "Geeqie" },      properties = { floating = true } },
     { rule = { class = "ROX-Filer" },   properties = { floating = true } },
