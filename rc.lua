@@ -354,7 +354,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "#233", function () exec("plight.py -c  10") end),
     awful.key({}, "#165", function () exec("sudo /usr/sbin/pm-hibernate") end),
     awful.key({}, "#150", function () exec("sudo /usr/sbin/pm-suspend")   end),
-    awful.key({}, "#163", function () exec("pypres.py") 
+    awful.key({}, "#163", function () exec("pypres.py") end),
     -- awful.key({ modkey }, "#78", function () exec("xscreesaver-command --lock") end),
     -- awful.key({}, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
     -- }}}
