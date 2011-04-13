@@ -52,20 +52,18 @@ layouts = {
 
 -- {{{ Tags
 tags = {
-  names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", 9 },
+  names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", "stats" },
   layout = { layouts[2], layouts[1], layouts[1], layouts[4], layouts[1],
-             layouts[4], layouts[6], layouts[4], layouts[6]
+             layouts[4], layouts[6], layouts[4], layouts[4]
 }}
 
 for s = 1, scount do
   tags[s] = awful.tag(tags.names, s, tags.layout)
   for i, t in ipairs(tags[s]) do
       awful.tag.setproperty(t, "mwfact", i==5 and 0.13  or  0.5)
-      awful.tag.setproperty(t, "hide",  i==9 and true)
   end
 end
 -- }}}
-
 
 -- {{{ Wibox
 --
@@ -167,7 +165,7 @@ mailwidget = widget({ type = "textbox" })
 vicious.register(mailwidget, vicious.widgets.mbox, "$1", 181, {home .. "/mail/Inbox", 15})
 -- Register buttons
 mailwidget:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () exec("urxvt --title Mutt -e mutt") end)
+  awful.button({ }, 1, function () exec("urxvt --title mutt -e mutt") end)
 ))
 -- }}}
 
@@ -267,7 +265,6 @@ for s = 1, scount do
         awful.button({ }, 4, function () awful.layout.inc(layouts,  1) end),
         awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
     ))
-
     -- Create the taglist
     taglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, taglist.buttons)
     -- Create the wibox
@@ -313,6 +310,21 @@ clientbuttons = awful.util.table.join(
 )
 -- }}}
 
+-- {{{ Definte a run_one program launcher
+function run_once(prg,arg_string,pname,screen)
+    if not prg then
+        do return nil end
+    end
+    if not pname then
+       pname = prg
+    end
+    if not arg_string then
+      sexec("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+    else
+      sexec("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. arg_string .. ")",screen)
+    end
+end
+-- }}}
 
 -- {{{ Key bindings
 --
@@ -324,11 +336,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "w", function () exec("firefox") end),
     awful.key({ modkey }, "#36", function () exec("urxvt") end),
     awful.key({ altkey }, "#49", function () scratch.drop("urxvt", "bottom", nil, nil, 0.30) end),
-    awful.key({ modkey }, "a", function () exec("urxvt --title Mutt -e mutt") end),
-    awful.key({ modkey }, "o", function () exec("urxvt --title Ncmpcpp -e ncmpcpp") end),
-    awful.key({ modkey }, "i", function () exec("pidgin")
-                                           exec("skype")
-                                           exec("urxvt --title irssi -e irssi") end),
+    awful.key({ modkey }, "a", function () run_once("urxvt", "--title mutt -e", "mutt") end),
+    awful.key({ modkey }, "o", function () run_once("urxvt", "--title ncmpcpp -e", "ncmpcpp") end),
+    awful.key({ modkey }, "i", function () run_once("pidgin") run_once("skype")
+                                           run_once("urxvt", "--title irssi -e", "irssi") end),
     awful.key({ modkey }, "q", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ altkey }, "#51", function () if boosk then osk(nil, mouse.screen)
         else boosk, osk = pcall(require, "osk") end
@@ -336,7 +347,6 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Multimedia keys
-    awful.key({}, "#235", function () exec("xscreesaver-command --lock") end),
     awful.key({}, "#121", function () exec("pvol.py -m") end),
     awful.key({}, "#122", function () exec("pvol.py -p -c -2") end),
     awful.key({}, "#123", function () exec("pvol.py -p -c  2") end),
@@ -344,7 +354,9 @@ globalkeys = awful.util.table.join(
     awful.key({}, "#233", function () exec("plight.py -c  10") end),
     awful.key({}, "#165", function () exec("sudo /usr/sbin/pm-hibernate") end),
     awful.key({}, "#150", function () exec("sudo /usr/sbin/pm-suspend")   end),
-    awful.key({}, "#163", function () exec("pypres.py") end),
+    awful.key({}, "#163", function () exec("pypres.py") 
+    -- awful.key({ modkey }, "#78", function () exec("xscreesaver-command --lock") end),
+    -- awful.key({}, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
     -- }}}
 
     -- {{{ Prompt menus
@@ -510,11 +522,12 @@ awful.rules.rules = {
     { rule = { instance = "firefox-bin" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Akregator" },   properties = { tag = tags[scount][8]} },
-    { rule = { name  = "Mutt" },        properties = { tag = tags[1][4]} },
-    { rule = { name  = "Ncmpcpp" },     properties = { tag = tags[scount][8]} },
+    { rule = { name  = "mutt" },        properties = { tag = tags[1][4]} },
+    { rule = { name  = "ncmpcpp" },     properties = { tag = tags[scount][8]} },
     { rule = { class = "Pidgin" },      properties = { tag = tags[1][5]} },
     { rule = { class = "Skype" },       properties = { tag = tags[1][5]} },
     { rule = { name  = "irssi" },       properties = { tag = tags[scount][6]} },
+    { rule = { name  = "htop" },        properties = { tag = tags[scount][9]} },
     { rule = { class = "Ark" },         properties = { floating = true } },
     { rule = { class = "Geeqie" },      properties = { floating = true } },
     { rule = { class = "ROX-Filer" },   properties = { floating = true } },
@@ -572,5 +585,16 @@ for s = 1, scount do screen[s]:add_signal("arrange", function ()
     end
   end)
 end
+-- }}}
+
+-- {{{ Apps to open at startup
+run_once("emacs")
+run_once("firefox")
+run_once("pidgin")
+run_once("skype")
+run_once("urxvt", "--title mutt -e mutt", "mutt")
+run_once("urxvt", "--title irssi -e irssi", "irssi")
+run_once("urxvt", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
+run_once("urxvt", "--title htop -e htop", "htop")
 -- }}}
 -- }}}
