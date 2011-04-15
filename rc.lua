@@ -1,8 +1,9 @@
 -- {{{ License
 --
 -- Awesome configuration, using awesome 3.4.9 on Arch GNU/Linux
---   * Adrian C. <anrxc@sysphere.org>
+--   * Thomas Schreiber <tom..rizumu.us>
 
+-- Thanks to anrxc:  http://sysphere.org/~anrxc/
 -- Screenshot: http://sysphere.org/gallery/snapshots
 
 -- This work is licensed under the Creative Commons Attribution-Share
