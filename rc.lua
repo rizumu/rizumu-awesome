@@ -33,7 +33,7 @@ local scount = screen.count()
 beautiful.init(home .. "/.config/awesome/zenburn.lua")
 
 -- Terminal
-terminal = "terminator"
+terminal = "urxvt"
 
 -- Font
 awesome.font = "Inconsolata 10"
