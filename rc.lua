@@ -1,8 +1,9 @@
 -- {{{ License
 --
 -- Awesome configuration, using awesome 3.4.9 on Arch GNU/Linux
---   * Adrian C. <anrxc@sysphere.org>
+--   * Thomas Schreiber <tom..rizumu.us>
 
+-- Thanks to anrxc:  http://sysphere.org/~anrxc/
 -- Screenshot: http://sysphere.org/gallery/snapshots
 
 -- This work is licensed under the Creative Commons Attribution-Share
@@ -54,7 +55,7 @@ layouts = {
 tags = {
   names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", "stats" },
   layout = { layouts[2], layouts[1], layouts[1], layouts[4], layouts[1],
-             layouts[4], layouts[6], layouts[4], layouts[4]
+             layouts[4], layouts[6], layouts[3], layouts[6]
 }}
 
 for s = 1, scount do
@@ -454,6 +455,13 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control"},"r", function (c) c:redraw() end),
     awful.key({ modkey, "Shift" }, "0", function (c) c.sticky = not c.sticky end),
     awful.key({ modkey, "Shift" }, "m", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey, "Shift" }, "n", function()
+            local tag = awful.tag.selected()
+                for i=1, #tag:clients() do
+                    tag:clients()[i].minimized=false
+                    tag:clients()[i]:redraw()
+            end
+        end),
     awful.key({ modkey, "Shift" }, "c", function (c) exec("kill -CONT " .. c.pid) end),
     awful.key({ modkey, "Shift" }, "s", function (c) exec("kill -STOP " .. c.pid) end),
     awful.key({ modkey, "Shift" }, "t", function (c)
