@@ -18,6 +18,7 @@ require("awful.autofocus")
 -- User libraries
 require("vicious")
 require("scratch")
+require("naughty")
 -- }}}
 
 
