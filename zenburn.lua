@@ -7,7 +7,7 @@
 
 -- {{{ Main
 theme = {}
-theme.confdir       = awful.util.getdir("config")
+theme.confdir = awful.util.getdir("config")
 
 --theme.wallpaper_cmd = { "/usr/bin/nitrogen --restore" }
 --theme.wallpaper_cmd = { "awsetbg /home/rizumu/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg" }
