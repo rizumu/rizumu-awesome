@@ -55,8 +55,8 @@ layouts = {
 -- {{{ Tags
 tags = {
   names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", "stats" },
-  layout = { layouts[2], layouts[1], layouts[1], layouts[4], layouts[1],
-             layouts[4], layouts[4], layouts[4], layouts[6]
+  layout = { layouts[1], layouts[1], layouts[1], layouts[4], layouts[1],
+             layouts[4], layouts[4], layouts[4], layouts[1]
 }}
 
 for s = 1, scount do
@@ -510,10 +510,10 @@ awful.rules.rules = {
     { rule = { class = "Skype" },       properties = { tag = tags[1][5]} },
     { rule = { name  = "irssi" },       properties = { tag = tags[scount][6]} },
     { rule = { name  = "htop" },        properties = { tag = tags[scount][9]} },
-    { rule = { class = "Ark" },         properties = { floating = true } },
-    { rule = { class = "Geeqie" },      properties = { floating = true } },
-    { rule = { class = "ROX-Filer" },   properties = { floating = true } },
-    { rule = { class = "Pinentry.*" },  properties = { floating = true } },
+    --{ rule = { class = "Ark" },         properties = { floating = true } },
+    --{ rule = { class = "Geeqie" },      properties = { floating = true } },
+    --{ rule = { class = "ROX-Filer" },   properties = { floating = true } },
+    --{ rule = { class = "Pinentry.*" },  properties = { floating = true } },
 }
 -- }}}
 
@@ -570,11 +570,11 @@ end
 -- }}}
 
 -- {{{ Apps to open at startup
-run_once("emacs")
+-- run_once("urxvt", "--title emacs -e emacsclient --no-wait --create-frame", "emacs")
 run_once("firefox")
 run_once("pidgin")
 run_once("skype")
-run_once("urxvt", "--title mutt -e mutt", "mutt")
+-- run_once("urxvt", "--title mutt -e mutt", "mutt")
 run_once("urxvt", "--title irssi -e irssi", "irssi")
 run_once("urxvt", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
 run_once("urxvt", "--title htop -e htop", "htop")
