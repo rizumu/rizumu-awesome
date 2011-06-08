@@ -496,7 +496,7 @@ awful.rules.rules = {
     { rule = { class = "Firefox",  instance = "Navigator" },
       properties = { tag = tags[scount][3] } },
     { rule = { class = "Emacs",    instance = "emacs" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[scount][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Xmessage", instance = "xmessage" },
@@ -504,12 +504,12 @@ awful.rules.rules = {
     { rule = { instance = "firefox-bin" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Akregator" },   properties = { tag = tags[scount][8]} },
-    { rule = { name  = "mutt" },        properties = { tag = tags[1][4]} },
+    { rule = { name  = "mutt" },        properties = { tag = tags[scount][4]} },
     { rule = { name  = "ncmpcpp" },     properties = { tag = tags[scount][8]} },
-    { rule = { class = "Pidgin" },      properties = { tag = tags[1][5]} },
-    { rule = { class = "Skype" },       properties = { tag = tags[1][5]} },
+    { rule = { class = "Pidgin" },      properties = { tag = tags[scount][5]} },
+    { rule = { class = "Skype" },       properties = { tag = tags[scount][5]} },
     { rule = { name  = "irssi" },       properties = { tag = tags[scount][6]} },
-    { rule = { name  = "htop" },        properties = { tag = tags[scount][9]} },
+    { rule = { name  = "htop" },        properties = { tag = tags[1][9]} },
     --{ rule = { class = "Ark" },         properties = { floating = true } },
     --{ rule = { class = "Geeqie" },      properties = { floating = true } },
     --{ rule = { class = "ROX-Filer" },   properties = { floating = true } },
@@ -575,7 +575,7 @@ run_once("firefox")
 run_once("pidgin")
 run_once("skype")
 -- run_once("urxvt", "--title mutt -e mutt", "mutt")
-run_once("urxvt", "--title irssi -e irssi", "irssi")
+-- run_once("urxvt", "--title irssi -e irssi", "irssi")
 run_once("urxvt", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
 run_once("urxvt", "--title htop -e htop", "htop")
 -- }}}
