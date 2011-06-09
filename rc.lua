@@ -54,7 +54,7 @@ layouts = {
 
 -- {{{ Tags
 tags = {
-  names  = { "term", "emacs", "web", "mail", "im", "irc", "rss", "ongaku", "stats" },
+  names  = { "term", "emacs", "web", "irc", "im", "mail", "rss", "ongaku", "stats" },
   layout = { layouts[1], layouts[1], layouts[1], layouts[4], layouts[1],
              layouts[4], layouts[4], layouts[4], layouts[1]
 }}
@@ -504,11 +504,11 @@ awful.rules.rules = {
     { rule = { instance = "firefox-bin" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Akregator" },   properties = { tag = tags[scount][8]} },
-    { rule = { name  = "mutt" },        properties = { tag = tags[scount][4]} },
+    { rule = { name  = "mutt" },        properties = { tag = tags[scount][6]} },
     { rule = { name  = "ncmpcpp" },     properties = { tag = tags[scount][8]} },
     { rule = { class = "Pidgin" },      properties = { tag = tags[scount][5]} },
     { rule = { class = "Skype" },       properties = { tag = tags[scount][5]} },
-    { rule = { name  = "irssi" },       properties = { tag = tags[scount][6]} },
+    { rule = { name  = "irssi" },       properties = { tag = tags[scount][4]} },
     { rule = { name  = "htop" },        properties = { tag = tags[1][9]} },
     --{ rule = { class = "Ark" },         properties = { floating = true } },
     --{ rule = { class = "Geeqie" },      properties = { floating = true } },
@@ -575,7 +575,7 @@ run_once("firefox")
 run_once("pidgin")
 run_once("skype")
 -- run_once("urxvt", "--title mutt -e mutt", "mutt")
--- run_once("urxvt", "--title irssi -e irssi", "irssi")
+-- run_once("urxvt", "--title irssi -e screen irssi", "irssi")
 run_once("urxvt", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
 run_once("urxvt", "--title htop -e htop", "htop")
 -- }}}
