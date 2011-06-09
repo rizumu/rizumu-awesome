@@ -35,7 +35,7 @@ local scount = screen.count()
 beautiful.init(home .. "/.config/awesome/zenburn.lua")
 
 -- Terminal
-terminal = "urxvt"
+terminal = "urxvtcd"
 
 -- Font
 awesome.font = "Inconsolata 10"
@@ -167,7 +167,7 @@ mailwidget = widget({ type = "textbox" })
 vicious.register(mailwidget, vicious.widgets.mbox, "$1", 181, {home .. "/mail/Inbox", 15})
 -- Register buttons
 mailwidget:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () exec("urxvt --title mutt -e mutt") end)
+  awful.button({ }, 1, function () exec("urxvtcd --title mutt -e mutt") end)
 ))
 -- }}}
 
@@ -309,12 +309,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "e", function () exec("emacsclient -n -c") end),
     awful.key({ modkey }, "r", function () exec("rox", false) end),
     awful.key({ modkey }, "w", function () exec("firefox") end),
-    awful.key({ modkey }, "#36", function () exec("urxvt") end),
-    awful.key({ altkey }, "#49", function () scratch.drop("urxvt", "bottom", nil, nil, 0.30) end),
-    awful.key({ modkey }, "a", function () run_once("urxvt", "--title mutt -e", "mutt") end),
-    awful.key({ modkey }, "o", function () run_once("urxvt", "--title ncmpcpp -e", "ncmpcpp") end),
+    awful.key({ modkey }, "#36", function () exec("urxvtcd") end),
+    awful.key({ altkey }, "#49", function () scratch.drop("urxvtcd", "bottom", nil, nil, 0.30) end),
+    awful.key({ modkey }, "a", function () run_once("urxvtcd", "--title mutt -e", "mutt") end),
+    awful.key({ modkey }, "o", function () run_once("urxvtcd", "--title ncmpcpp -e", "ncmpcpp") end),
     awful.key({ modkey }, "i", function () run_once("pidgin") run_once("skype")
-                                           run_once("urxvt", "--title irssi -e", "irssi") end),
+                                           run_once("urxvtcd", "--title irssi -e", "irssi") end),
     awful.key({ modkey }, "q", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ altkey }, "#51", function () if boosk then osk(nil, mouse.screen)
         else boosk, osk = pcall(require, "osk") end
@@ -570,13 +570,13 @@ end
 -- }}}
 
 -- {{{ Apps to open at startup
--- run_once("urxvt", "--title emacs -e emacsclient --no-wait --create-frame", "emacs")
+-- run_once("urxvtcd", "--title emacs -e emacsclient --no-wait --create-frame", "emacs")
 run_once("firefox")
 run_once("pidgin")
 run_once("skype")
--- run_once("urxvt", "--title mutt -e mutt", "mutt")
--- run_once("urxvt", "--title irssi -e screen irssi", "irssi")
-run_once("urxvt", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
-run_once("urxvt", "--title htop -e htop", "htop")
+-- run_once("urxvtcd", "--title mutt -e mutt", "mutt")
+-- run_once("urxvtcd", "--title irssi -e screen irssi", "irssi")
+run_once("urxvtcd", "--title ncmpcpp -e ncmpcpp", "ncmpcpp")
+run_once("urxvtcd", "--title htop -e htop", "htop")
 -- }}}
 -- }}}
